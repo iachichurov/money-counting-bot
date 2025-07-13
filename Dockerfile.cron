@@ -1,0 +1,27 @@
+# Берем тот же образ Python
+FROM python:3.11-slim
+
+# Ставим cron
+RUN apt-get update && apt-get -y install cron
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем и устанавливаем зависимости, как и для основного бота
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем код приложения
+COPY . .
+
+# Копируем наш файл с расписанием в системную папку cron
+COPY crontab /etc/cron.d/recalc-cron
+
+# Даем файлу правильные права
+RUN chmod 0644 /etc/cron.d/recalc-cron
+
+# Создаем лог-файл, чтобы было куда писать
+RUN touch /var/log/cron.log
+
+# Команда для запуска cron в "нефоновом" режиме, чтобы контейнер не выключался
+CMD cron && tail -f /var/log/cron.log

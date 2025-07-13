@@ -1,0 +1,36 @@
+# Версия синтаксиса
+version: '3.8'
+
+# Описываем наши сервисы (контейнеры)
+services:
+  # Сервис для основного бота
+  bot:
+    # Инструкция по сборке
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Имя контейнера для удобства
+    container_name: budget_bot
+    # Перезапускать всегда, если он упал (кроме случая, когда мы его сами остановили)
+    restart: unless-stopped
+    # Прокидываем файл с переменными окружения (где лежит токен)
+    env_file:
+      - .env
+    # Подключаем общую папку для базы данных
+    volumes:
+      - db_data:/app/data
+
+  # Сервис для нашего ночного ревизора
+  cron:
+    build:
+      context: .
+      dockerfile: Dockerfile.cron
+    container_name: budget_bot_cron
+    restart: unless-stopped
+    # Ему тоже нужна база данных из той же папки
+    volumes:
+      - db_data:/app/data
+
+# Описываем общие ресурсы (в нашем случае - папка для базы)
+volumes:
+  db_data:

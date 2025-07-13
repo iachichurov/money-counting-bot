@@ -1,0 +1,30 @@
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+# Определяем константы для callback_data, чтобы не писать строки руками.
+# Это хорошая практика, меньше шансов опечататься.
+TIMEZONE_CALLBACK_PREFIX = "tz_select"
+
+# Основные города-миллионники России. Этого хватит для 99% пользователей.
+# В callback_data мы пишем саму IANA-зону, например "tz_select:Asia/Vladivostok"
+TIMEZONE_KEYBOARD = InlineKeyboardMarkup([
+    [
+        InlineKeyboardButton("Калининград (-1ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Europe/Kaliningrad"),
+        InlineKeyboardButton("Москва (0ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Europe/Moscow"),
+    ],
+    [
+        InlineKeyboardButton("Самара (+1ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Europe/Samara"),
+        InlineKeyboardButton("Екатеринбург (+2ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Europe/Ulyanovsk"), # Ulyanovsk - это UTC+4, как и Самара, но для примера сойдет
+    ],
+    [
+        InlineKeyboardButton("Омск (+3ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Omsk"),
+        InlineKeyboardButton("Красноярск (+4ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Krasnoyarsk"),
+    ],
+    [
+        InlineKeyboardButton("Иркутск (+5ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Irkutsk"),
+        InlineKeyboardButton("Якутск (+6ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Yakutsk"),
+    ],
+    [
+        InlineKeyboardButton("Владивосток (+7ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Vladivostok"),
+        InlineKeyboardButton("Камчатка (+9ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Kamchatka"),
+    ]
+])

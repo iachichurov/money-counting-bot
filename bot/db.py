@@ -181,3 +181,18 @@ def update_daily_norm(user_id: int, new_norm: float):
         )
         conn.commit()
     logger.info(f"Дневная норма для пользователя {user_id} обновлена на {new_norm}")
+
+
+def delete_user(user_id: int):
+    """
+    Удаляет пользователя и все его транзакции из базы данных.
+    Полное уничтожение, блядь.
+    """
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        # Сначала удаляем все транзакции, чтобы не нарушать внешние ключи
+        cursor.execute("DELETE FROM transactions WHERE user_id = ?", (user_id,))
+        # Затем удаляем самого пользователя
+        cursor.execute("DELETE FROM users WHERE user_id = ?", (user_id,))
+        conn.commit()
+    logger.info(f"Пользователь {user_id} и все его данные были стерты из базы.")

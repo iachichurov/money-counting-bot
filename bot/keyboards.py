@@ -28,3 +28,15 @@ TIMEZONE_KEYBOARD = InlineKeyboardMarkup([
         InlineKeyboardButton("Камчатка (+9ч)", callback_data=f"{TIMEZONE_CALLBACK_PREFIX}:Asia/Kamchatka"),
     ]
 ])
+
+# --- НОВАЯ КЛАВИАТУРА ДЛЯ ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ ---
+CONFIRM_DELETE_CALLBACK_PREFIX = "delete_confirm"
+
+CONFIRM_DELETE_KEYBOARD = InlineKeyboardMarkup([
+    [
+        InlineKeyboardButton("🔴 ДА, СТЕРЕТЬ ВСЕ ДАННЫЕ", callback_data=f"{CONFIRM_DELETE_CALLBACK_PREFIX}:yes"),
+    ],
+    [
+        InlineKeyboardButton("🟢 Нет, я передумал", callback_data=f"{CONFIRM_DELETE_CALLBACK_PREFIX}:no"),
+    ]
+])

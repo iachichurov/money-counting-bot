@@ -1,0 +1,47 @@
+# Системные файлы
+**/__pycache__
+**/*.py[cod]
+**/*$py.class
+**/.DS_Store
+**/Thumbs.db
+
+# Виртуальное окружение
+.venv/
+venv/
+env/
+
+# Секреты и переменные окружения (они будут добавлены через Docker Compose)
+.env
+
+# Логи и временные файлы
+**/*.log
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+data/
+
+# Git
+.git/
+.gitignore
+
+# IDE файлы
+.idea/
+.vscode/
+**/*.swp
+**/*.swo
+
+# Кэш и метаданные
+**/.mypy_cache/
+**/.pytest_cache/
+**/.coverage
+**/.coverage.*
+**/htmlcov/
+
+# Docker файлы (не нужны внутри контейнера)
+Dockerfile*
+docker-compose.yml
+.dockerignore
+
+# Документация
+README.md
+LICENSE

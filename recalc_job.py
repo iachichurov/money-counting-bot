@@ -3,7 +3,7 @@ from datetime import datetime, date, timedelta
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 # Мы импортируем функции из нашего модуля bot
-from bot.db import get_all_active_users, get_spent_for_period, update_user_balance
+from bot.db import get_all_active_users, get_spent_for_period, update_user_balance, get_spent_today
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -56,6 +56,12 @@ def run_recalculations():
 
             # Считаем траты за этот конкретный день
             spent_on_day = get_spent_for_period(user_id, start_utc, end_utc)
+
+            # --- ИСПРАВЛЕНИЕ ---
+            # Раньше траты за день не учитывались, если они были сделаны
+            # в тот же день, что и пересчет. Теперь мы добавляем их к балансу.
+            if day_to_process == last_recalc_date:
+                spent_on_day += get_spent_today(user_id)
 
             base_norm = user["daily_norm"]
 

@@ -24,7 +24,7 @@ def main() -> None:
     # Важно вызвать перед стартом бота, чтобы избежать ошибок при первом запуске
     init_db()
 
-    TOKEN = os.getenv("BOT_TOKEN")
+    TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
     if not TOKEN:
         logger.critical("Пиздец! Токен не найден. Проверь файл .env")
         return

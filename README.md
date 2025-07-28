@@ -1,5 +1,4 @@
 /nash_ohuennyi_bot/
-|
 |-- bot/                          # Folder with the bot's code
 |   |-- __init__.py               # So that Python understands that this is a package, not just a folder
 |   |-- handlers.py               # All handlers (commands, messages, buttons) will go HERE
